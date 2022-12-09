@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Patua+One&display=swap');
+:root{
+    --titulos : #83563f;
+    --botones:#FAAB78;
+}
+body{
+    font-family: 'Patua One', cursive;
+    /* background-color: #FCF9BE; */
+    background-image: url(../images/Fondo.png);
+    background-repeat: no-repeat;
+    background-size: 100% ;
+}
+#seleccionar-mascota{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+h1{
+    font-size: 2.4rem;
+    color: var(--titulos);
+}
+h2{
+    color: var(--titulos);
+}
+input{
+    display: none;
+}
+
+.tarjeta{
+    display: flex;
+    background-color:var(--botones);
+    width: 200px;
+    height: 140px;
+    box-sizing: border-box;
+    margin: 10px;
+    border-radius: 5px;
+    align-items: center;
+    border: 3px solid #E8F3D6;
+}
+input:checked + .tarjeta , .tarjeta:hover{
+    border: 4px solid blue;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+.tarjeta img{
+    height: 120px;
+}
+.tarjeta:nth-child(6) img{
+    margin-right: 30px;
+    margin-left: 20px;
+}
+.guerreros{
+    display: flex;
+    height: 250px;
+}
+#boton-mascota, .boton-ataque{
+    background-color: var(--botones);
+    border: 3px solid #E8F3D6;
+    box-sizing: border-box;
+    height: 45px;
+    width: 140px;
+    border-radius: 7px;
+    color: white;
+}
+#seleccionar-ataque{
+    flex-direction: column;
+    align-items: center;
+}
+.boton-ataque:hover{
+    border: 2px solid blue;
+    cursor: pointer;
+}
+#mensajes{
+    display: flex;
+    flex-direction: column;
+    width: 150px;
+    background-color: var(--botones);
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 20px;
+    align-items: center;
+}
+#boton-reiniciar{
+    cursor: pointer;
+    font-family: 'Patua One', cursive;
+    border: transparent;
+    color: var(--titulos);
+    background-color: var(--botones);
+}
+.ataques{
+   
+    display: grid;
+    grid-template-areas: 'J E';
+    text-align: center;
+}
+#ataques-jugador{
+    grid-area: J;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+
+}
+#ataques-enemigo{
+    grid-area: E;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+#ver-mapa{
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#mapa{
+    border: 2px solid black;
+}
+
+@media (max-width:857px) {
+    .guerreros{
+        display: flex;
+        height: 250px;
+        flex-direction: column;
+    }
+    #boton-mascota{
+       margin-top: 200px;
+    }
+    body{
+        font-family: 'Patua One', cursive;
+        background-image: url(../images/FondoCelular.png);
+        background-repeat: no-repeat;
+        background-size: 100%;
+    }
+}

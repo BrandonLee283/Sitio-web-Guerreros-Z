@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOKEPON</title>
+    <link rel="stylesheet" href="./style/style.css">
+</head>
+
+<body>
+    <section id="seleccionar-mascota">
+        <h1>Batalla Ball</h1>
+        <h2>Selecciona un Personaje: </h2>
+
+        <div id="contenedor-tarjetas" class="guerreros">
+
+        </div>
+        <button id="boton-mascota">Seleccionar</button>
+
+    </section>
+
+    <section id="ver-mapa">
+        <h1>Recorre el mapa con tu guerrero</h1>
+        <canvas id="mapa"></canvas>
+        <button onmouseup='detenerMovimiento()' onmousedown='moverArriba()'>Arriba</button>
+        <button onmouseup='detenerMovimiento()' onmousedown='moverIzquierda()'>Izquierda</button>
+        <button onmouseup='detenerMovimiento()' onmousedown='moverAbajo()'>Abajo</button>
+        <button onmouseup='detenerMovimiento()' onmousedown='moverDerecha()'>Derecha</button>
+
+    </section>
+
+    <section id="seleccionar-ataque">
+        <h1>Dragon Ball</h1>
+        <h2>Selecciona un ataque:</h2>
+
+        <div id="botones-ataque">
+            <!-- <button id="boton-fuego" class='boton-ataque'>Fuego 🔥</button>
+            <button id="boton-agua" class='boton-ataque'>Agua 💧</button>
+            <button id="boton-tierra" class='boton-ataque'>Tierra 🌱</button> -->
+        </div>
+
+        <div id="mensajes">
+            <p id="resultado">Mucha Suerte</p>
+            <section id="reiniciar">
+                <button id="boton-reiniciar">Reiniciar</button>
+            </section>
+        </div>
+
+        <div class="ataques">
+            <div id="ataques-jugador"><span id="mascota-jugador"></span> <span id="vidas-jugador">0</span></div>
+            <div id="ataques-enemigo"><span id="mascota-enemigo"></span><span id="vidas-enemigo">0</span></div>
+        </div>
+    </section>
+    <script src="./js/mokepon.js"></script>
+</body>
+</html>
