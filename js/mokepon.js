@@ -51,12 +51,7 @@ window.onload = ()=>{
     let victoriasEnemigo = 0
 
     let intervalo
-    let mapaFondo = new Image()
-    mapaFondo.src = '../images/mapaFondo.png'
-
-    let seleccion
-    let guerreroSeleccionado = []
-
+    
     class Gurerrero {
         constructor(nombre, foto, vida){
             this.nombre = nombre
@@ -222,7 +217,6 @@ window.onload = ()=>{
             mascotaJugador.innerHTML = (`${inputVegeta.id}`)
             seleccionarMascotaEnemigo();
             //seleccionarAtaque.style.display = 'flex'
-            iniciarMapa()
             sectionVerMapa.style.display = 'flex'
             seleccionarMascota.style.display = 'none'
             generarBotones()
@@ -230,7 +224,6 @@ window.onload = ()=>{
             mascotaJugador.innerHTML =(`${inputBroly.id}`)
             seleccionarMascotaEnemigo();
            // seleccionarAtaque.style.display = 'flex'
-           iniciarMapa()
             sectionVerMapa.style.display = 'flex'
             seleccionarMascota.style.display = 'none'
             generarBotones()
@@ -255,7 +248,8 @@ window.onload = ()=>{
         })    
     
         botones =  document.querySelectorAll('.BAtaque')
-
+    
+      
         secuenciaAtaque()
     }
     const secuenciaAtaque = () =>{
@@ -284,46 +278,37 @@ window.onload = ()=>{
         location.reload()
     })
 
-    const pintarCanvas=()=>{
-
-        obtenerObjetoMascota()
-        console.log(guerreroSeleccionado)
-        seleccion = guerreroSeleccionado
-        seleccion.x = seleccion.x +seleccion.velocidadX
-        seleccion.y = seleccion.y +seleccion.velocidadY
+    const pintarPersonaje=()=>{
+        goku.x = goku.x +goku.velocidadX
+        goku.y = goku.y +goku.velocidadY
 
         lienzo.clearRect(0,0, mapa.width, mapa.height)
         lienzo.drawImage(
-            mapaFondo, 
-            0,
-            0, 
-            mapa.width, 
-            mapa.height
-        )
-        lienzo.drawImage(
-            seleccion.mapaFoto,
-            seleccion.x,
-            seleccion.y,
-            seleccion.ancho,
-            seleccion.alto
+            goku.mapaFoto,goku.x,goku.y,goku.ancho,goku.alto
         )
     }
 
+    // const moverBoton = document.getElementById('mover')
+
+    // moverBoton.addEventListener('click',()=>{
+    //     goku.x = goku.x +5
+    //     pintarPersonaje()
+    // })
     moverDerecha=()=>{
-        seleccion.velocidadX = 5
+        goku.velocidadX = 5
     }
     moverIzquierda=()=>{
-        seleccion.velocidadX = -5
+        goku.velocidadX = -5
     }
     moverArriba=()=>{
-        seleccion.velocidadY = -5
+        goku.velocidadY = -5
     }
     moverAbajo=()=>{
-        seleccion.velocidadY = 5
+        goku.velocidadY = 5
     }
     detenerMovimiento = () =>{
-        seleccion.velocidadX = 0
-        seleccion.velocidadY = 0
+        goku.velocidadX = 0
+        goku.velocidadY = 0
     }
     teclaPresionada = (event) =>{
         switch (event.key) {
@@ -344,19 +329,11 @@ window.onload = ()=>{
         }
     }
     iniciarMapa = ()=>{
-        mapa.width = 420
-        mapa.height = 300
-        intervalo = setInterval(pintarCanvas, 50)
+        intervalo = setInterval(pintarPersonaje, 50)
         window.addEventListener('keydown', teclaPresionada)
         window.addEventListener('keyup', detenerMovimiento)
     }
-    const obtenerObjetoMascota=()=>{
-        guerreros.forEach((guerrero)=>{
-            if (guerrero.nombre == selecionado){
-               guerreroSeleccionado.push(guerrero)
-            }
-        })
-     }
+
 }
     
 
