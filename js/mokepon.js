@@ -1,4 +1,3 @@
-
 window.onload = ()=>{
 
     const seleccionarAtaque = document.getElementById('seleccionar-ataque')
@@ -37,7 +36,7 @@ window.onload = ()=>{
     let inputBroly 
 
     let ataqueEnemigo = []
-    let opcionGuerreros
+    let opcionGuerreroslienzo
 
     let selecionado
     let ataquesGuerreroEnemigo
@@ -51,27 +50,43 @@ window.onload = ()=>{
     let victoriasEnemigo = 0
 
     let intervalo
+
+    let mapaBackgroud = new Image()
+    mapaBackgroud.src = './images/mapafondo.png'
     
     class Gurerrero {
-        constructor(nombre, foto, vida){
+        constructor(nombre, foto, vida,fotoMapa,x=10,y=10){
             this.nombre = nombre
             this.foto = foto
             this.vida = vida
             this.ataques= []
-            this.x = 20
-            this.y = 30
-            this.ancho = 80
-            this.alto = 80
+            this.x = x
+            this.y = y
+            this.ancho = 40
+            this.alto = 40
             this.mapaFoto = new Image()
-            this.mapaFoto.src = foto
+            this.mapaFoto.src = fotoMapa
             this.velocidadX = 0
             this.velocidadY = 0
 
         }
+        pintarGuerrero =()=>{
+            lienzo.drawImage(
+                this.mapaFoto,
+                this.x,
+                this.y,
+                this.ancho,
+                this.alto
+            )
+        }
     }
-    let goku = new Gurerrero('Goku','./images/guku.png',3);
-    let vegeta = new Gurerrero('Vegeta','./images/vegeta.png',3);
-    let broly = new Gurerrero('Broly','./images/broly.png',3);
+    let goku = new Gurerrero('Goku','./images/guku.png',3,'./images/cabezaG.png');
+    let vegeta = new Gurerrero('Vegeta','./images/vegeta.png',3,'./images/cabezaV.png');
+    let broly = new Gurerrero('Broly','./images/broly.png',3,'./images/cabezaB.png');
+
+    let gokuEnemigo = new Gurerrero('Goku','./images/guku.png',3,'./images/cabezaG.png',200,10);
+    let vegetaEnemigo = new Gurerrero('Vegeta','./images/vegeta.png',3,'./images/cabezaV.png',200,100);
+    let brolyEnemigo = new Gurerrero('Broly','./images/broly.png',3,'./images/cabezaB.png',150,100);
 
     goku.ataques.push(
         {nombre: '💧',id: 'boton-agua'},
@@ -279,7 +294,7 @@ window.onload = ()=>{
         location.reload()
     })
 
-    const pintarPersonaje=()=>{
+    const pintarCanvas=()=>{
 
         selecionado =  mascotaJugador.innerHTML
         guerreros.forEach((guerrero)=>{           
@@ -290,13 +305,12 @@ window.onload = ()=>{
                 guerrero.y = guerrero.y +guerrero.velocidadY
 
                 lienzo.clearRect(0,0, mapa.width, mapa.height)
-                lienzo.drawImage(
-                    guerrero.mapaFoto,
-                    guerrero.x,
-                    guerrero.y,
-                    guerrero.ancho,
-                    guerrero.alto
-                )
+                lienzo.drawImage(mapaBackgroud,0,0,mapa.width,mapa.height)
+                guerrero.pintarGuerrero()
+                gokuEnemigo.pintarGuerrero()
+                vegetaEnemigo.pintarGuerrero()
+                brolyEnemigo.pintarGuerrero()
+
             }
         })
     }
@@ -356,7 +370,9 @@ window.onload = ()=>{
         }
     }
     iniciarMapa = ()=>{
-        intervalo = setInterval(pintarPersonaje, 50)
+        mapa.width = 500
+        mapa.height = 300
+        intervalo = setInterval(pintarCanvas, 50)
         window.addEventListener('keydown', teclaPresionada)
         window.addEventListener('keyup', detenerMovimiento)
     }

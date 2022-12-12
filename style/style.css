@@ -116,6 +116,7 @@ input:checked + .tarjeta , .tarjeta:hover{
 }
 #mapa{
     border: 2px solid black;
+    
 }
 
 @media (max-width:857px) {
