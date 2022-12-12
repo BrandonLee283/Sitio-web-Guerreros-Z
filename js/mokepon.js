@@ -36,7 +36,7 @@ window.onload = ()=>{
     let inputBroly 
 
     let ataqueEnemigo = []
-    let opcionGuerreroslienzo
+    let opcionGuerreros
 
     let selecionado
     let ataquesGuerreroEnemigo
@@ -62,8 +62,8 @@ window.onload = ()=>{
             this.ataques= []
             this.x = x
             this.y = y
-            this.ancho = 40
-            this.alto = 40
+            this.ancho = 80
+            this.alto = 80
             this.mapaFoto = new Image()
             this.mapaFoto.src = fotoMapa
             this.velocidadX = 0
@@ -84,9 +84,9 @@ window.onload = ()=>{
     let vegeta = new Gurerrero('Vegeta','./images/vegeta.png',3,'./images/cabezaV.png');
     let broly = new Gurerrero('Broly','./images/broly.png',3,'./images/cabezaB.png');
 
-    let gokuEnemigo = new Gurerrero('Goku','./images/guku.png',3,'./images/cabezaG.png',200,10);
-    let vegetaEnemigo = new Gurerrero('Vegeta','./images/vegeta.png',3,'./images/cabezaV.png',200,100);
-    let brolyEnemigo = new Gurerrero('Broly','./images/broly.png',3,'./images/cabezaB.png',150,100);
+    let gokuEnemigo = new Gurerrero('Goku','./images/guku.png',3,'./images/cabezaG.png',400,10);
+    let vegetaEnemigo = new Gurerrero('Vegeta','./images/vegeta.png',3,'./images/cabezaV.png',300,150);
+    let brolyEnemigo = new Gurerrero('Broly','./images/broly.png',3,'./images/cabezaB.png',100,250);
 
     goku.ataques.push(
         {nombre: '💧',id: 'boton-agua'},
@@ -371,7 +371,7 @@ window.onload = ()=>{
     }
     iniciarMapa = ()=>{
         mapa.width = 500
-        mapa.height = 300
+        mapa.height = 350
         intervalo = setInterval(pintarCanvas, 50)
         window.addEventListener('keydown', teclaPresionada)
         window.addEventListener('keyup', detenerMovimiento)
