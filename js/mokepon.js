@@ -217,6 +217,7 @@ window.onload = ()=>{
             mascotaJugador.innerHTML = (`${inputVegeta.id}`)
             seleccionarMascotaEnemigo();
             //seleccionarAtaque.style.display = 'flex'
+            iniciarMapa()
             sectionVerMapa.style.display = 'flex'
             seleccionarMascota.style.display = 'none'
             generarBotones()
@@ -224,6 +225,7 @@ window.onload = ()=>{
             mascotaJugador.innerHTML =(`${inputBroly.id}`)
             seleccionarMascotaEnemigo();
            // seleccionarAtaque.style.display = 'flex'
+           iniciarMapa()
             sectionVerMapa.style.display = 'flex'
             seleccionarMascota.style.display = 'none'
             generarBotones()
@@ -233,7 +235,6 @@ window.onload = ()=>{
     })
     const generarBotones=()=>{
         selecionado = mascotaJugador.innerHTML;
-       
         guerreros.forEach((guerrero)=>{           
             if (guerrero.nombre == selecionado){
                 console.log(guerrero.nombre +""+ selecionado)
@@ -279,36 +280,62 @@ window.onload = ()=>{
     })
 
     const pintarPersonaje=()=>{
-        goku.x = goku.x +goku.velocidadX
-        goku.y = goku.y +goku.velocidadY
 
-        lienzo.clearRect(0,0, mapa.width, mapa.height)
-        lienzo.drawImage(
-            goku.mapaFoto,goku.x,goku.y,goku.ancho,goku.alto
-        )
+        selecionado =  mascotaJugador.innerHTML
+        guerreros.forEach((guerrero)=>{           
+            if (guerrero.nombre == selecionado){
+                console.log(guerrero.x)
+    
+                guerrero.x = guerrero.x +guerrero.velocidadX
+                guerrero.y = guerrero.y +guerrero.velocidadY
+
+                lienzo.clearRect(0,0, mapa.width, mapa.height)
+                lienzo.drawImage(
+                    guerrero.mapaFoto,
+                    guerrero.x,
+                    guerrero.y,
+                    guerrero.ancho,
+                    guerrero.alto
+                )
+            }
+        })
     }
 
-    // const moverBoton = document.getElementById('mover')
-
-    // moverBoton.addEventListener('click',()=>{
-    //     goku.x = goku.x +5
-    //     pintarPersonaje()
-    // })
     moverDerecha=()=>{
-        goku.velocidadX = 5
+        guerreros.forEach((guerrero)=>{           
+            if (guerrero.nombre == selecionado){
+                guerrero.velocidadX = 5
+            }
+        })
     }
     moverIzquierda=()=>{
-        goku.velocidadX = -5
+        guerreros.forEach((guerrero)=>{           
+            if (guerrero.nombre == selecionado){
+                guerrero.velocidadX = -5
+            }
+        })
     }
     moverArriba=()=>{
-        goku.velocidadY = -5
+        guerreros.forEach((guerrero)=>{           
+            if (guerrero.nombre == selecionado){
+                guerrero.velocidadY = -5
+            }
+        })
     }
     moverAbajo=()=>{
-        goku.velocidadY = 5
+        guerreros.forEach((guerrero)=>{           
+            if (guerrero.nombre == selecionado){
+                guerrero.velocidadY = 5
+            }
+        })
     }
     detenerMovimiento = () =>{
-        goku.velocidadX = 0
-        goku.velocidadY = 0
+        guerreros.forEach((guerrero)=>{           
+            if (guerrero.nombre == selecionado){
+                guerrero.velocidadX = 0
+                guerrero.velocidadY = 0
+            }
+        })
     }
     teclaPresionada = (event) =>{
         switch (event.key) {
