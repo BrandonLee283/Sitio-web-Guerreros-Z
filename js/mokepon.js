@@ -299,8 +299,7 @@ window.onload = ()=>{
         selecionado =  mascotaJugador.innerHTML
         guerreros.forEach((guerrero)=>{           
             if (guerrero.nombre == selecionado){
-                console.log(guerrero.x)
-    
+   
                 guerrero.x = guerrero.x +guerrero.velocidadX
                 guerrero.y = guerrero.y +guerrero.velocidadY
 
@@ -310,6 +309,11 @@ window.onload = ()=>{
                 gokuEnemigo.pintarGuerrero()
                 vegetaEnemigo.pintarGuerrero()
                 brolyEnemigo.pintarGuerrero()
+                if (guerrero.velocidadX !==0 || guerrero.velocidadY !==0) {
+                    colision(gokuEnemigo)
+                    colision(vegetaEnemigo)
+                    colision(brolyEnemigo)
+                }
 
             }
         })
@@ -369,12 +373,36 @@ window.onload = ()=>{
                 break;
         }
     }
-    iniciarMapa = ()=>{
+    iniciarMapa = ()=>{        
         mapa.width = 500
         mapa.height = 350
         intervalo = setInterval(pintarCanvas, 50)
         window.addEventListener('keydown', teclaPresionada)
         window.addEventListener('keyup', detenerMovimiento)
+    }
+
+    colision = (enemigo) =>{
+        const arribaE = enemigo.y
+        const abajoE = enemigo.y + enemigo.alto
+        const derechaE = enemigo.x + enemigo.ancho 
+        const izquierdaE = enemigo.x
+
+        guerreros.forEach((guerrero)=>{           
+            if (guerrero.nombre == selecionado){
+                arribaG = guerrero.y
+                abajoG = guerrero.y + guerrero.alto
+                derechaG = guerrero.x + guerrero.ancho 
+                izquierdaG= guerrero.x
+            }
+        })
+        if (abajoG < arribaE ||
+        arribaG > abajoE ||
+        derechaG < izquierdaE ||
+        izquierdaG > derechaE) {
+            return;
+        }
+        detenerMovimiento()
+        alert('Hay Colision con '+ enemigo.nombre)
     }
 
 }
