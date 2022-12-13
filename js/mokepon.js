@@ -109,6 +109,27 @@ window.onload = ()=>{
         {nombre: '🌱', id:'boton-tierra'},
         {nombre: '🌱', id:'boton-tierra'},
     )
+    gokuEnemigo.ataques.push(
+        {nombre: '💧',id: 'boton-agua'},
+        {nombre: '💧',id: 'boton-agua'},
+        {nombre: '💧',id: 'boton-agua'},
+        {nombre: '🔥',id: 'boton-fuego'},
+        {nombre: '🌱', id:'boton-tierra'}
+    )
+    vegetaEnemigo.ataques.push(
+        {nombre: '💧',id: 'boton-agua'},
+        {nombre: '🔥',id: 'boton-fuego'},
+        {nombre: '🔥',id: 'boton-fuego'},
+        {nombre: '🔥',id: 'boton-fuego'},
+        {nombre: '🌱', id:'boton-tierra'}
+    )
+    brolyEnemigo.ataques.push(
+        {nombre: '💧',id: 'boton-agua'},
+        {nombre: '🔥',id: 'boton-fuego'},
+        {nombre: '🌱', id:'boton-tierra'},
+        {nombre: '🌱', id:'boton-tierra'},
+        {nombre: '🌱', id:'boton-tierra'},
+    )
    
     guerreros.push(goku,vegeta,broly)
 
@@ -207,12 +228,10 @@ window.onload = ()=>{
             botonReiniciar.style.display = 'block'
         }
     }
-    const seleccionarMascotaEnemigo= ()=>{
+    const seleccionarMascotaEnemigo= (enemigo)=>{
         
-        let numeroAleatorio = aleatorio(0,guerreros.length -1)
-        mascotaEnemigo.innerHTML = guerreros[numeroAleatorio].nombre
-        
-        ataquesGuerreroEnemigo = guerreros[numeroAleatorio].ataques
+        mascotaEnemigo.innerHTML = enemigo.nombre
+        ataquesGuerreroEnemigo = enemigo.ataques
         
     }
     botonMascota.addEventListener('click',()=>{
@@ -222,24 +241,19 @@ window.onload = ()=>{
         inputBroly = document.getElementById(`Broly`)
         if(inputGoku.checked){
             mascotaJugador.innerHTML = (`${inputGoku.id}`)
-            seleccionarMascotaEnemigo();
-           // seleccionarAtaque.style.display = 'flex'
+            
             iniciarMapa()
             sectionVerMapa.style.display = 'flex'
             seleccionarMascota.style.display = 'none'
             generarBotones()
         }else if(inputVegeta.checked){
             mascotaJugador.innerHTML = (`${inputVegeta.id}`)
-            seleccionarMascotaEnemigo();
-            //seleccionarAtaque.style.display = 'flex'
             iniciarMapa()
             sectionVerMapa.style.display = 'flex'
             seleccionarMascota.style.display = 'none'
             generarBotones()
         }else if(inputBroly.checked){
             mascotaJugador.innerHTML =(`${inputBroly.id}`)
-            seleccionarMascotaEnemigo();
-           // seleccionarAtaque.style.display = 'flex'
            iniciarMapa()
             sectionVerMapa.style.display = 'flex'
             seleccionarMascota.style.display = 'none'
@@ -402,7 +416,12 @@ window.onload = ()=>{
             return;
         }
         detenerMovimiento()
-        alert('Hay Colision con '+ enemigo.nombre)
+        clearInterval(intervalo)
+        console.log('Se detecto una cola');
+        seleccionarAtaque.style.display = 'flex'
+        sectionVerMapa.style.display = 'none'
+        seleccionarMascotaEnemigo(enemigo);
+       // alert('Hay Colision con '+ enemigo.nombre)
     }
 
 }
