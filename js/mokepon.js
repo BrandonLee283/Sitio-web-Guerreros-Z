@@ -54,16 +54,28 @@ window.onload = ()=>{
     let mapaBackgroud = new Image()
     mapaBackgroud.src = './images/mapafondo.png'
     
+    let alturaBuscada
+    let anchoMapa = window.innerWidth - 20
+    let anchoMaxMapa = 350
+
+    if (anchoMapa > anchoMaxMapa){
+        anchoMapa = anchoMaxMapa -20
+    }
+    alturaBuscada = (anchoMapa * 600) /800
+
+    mapa.width = anchoMapa
+    mapa.height = alturaBuscada
+
     class Gurerrero {
         constructor(nombre, foto, vida,fotoMapa,x=10,y=10){
             this.nombre = nombre
             this.foto = foto
             this.vida = vida
             this.ataques= []
-            this.x = x
-            this.y = y
             this.ancho = 80
             this.alto = 80
+            this.x = aleatorio(0, mapa.width - this.ancho)
+            this.y = aleatorio(0, mapa.width - this.alto)
             this.mapaFoto = new Image()
             this.mapaFoto.src = fotoMapa
             this.velocidadX = 0
@@ -388,8 +400,7 @@ window.onload = ()=>{
         }
     }
     iniciarMapa = ()=>{        
-        mapa.width = 500
-        mapa.height = 350
+       
         intervalo = setInterval(pintarCanvas, 50)
         window.addEventListener('keydown', teclaPresionada)
         window.addEventListener('keyup', detenerMovimiento)
