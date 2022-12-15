@@ -56,7 +56,7 @@ window.onload = ()=>{
     
     let alturaBuscada
     let anchoMapa = window.innerWidth - 20
-    let anchoMaxMapa = 350
+    let anchoMaxMapa = 500 
 
     if (anchoMapa > anchoMaxMapa){
         anchoMapa = anchoMaxMapa -20
@@ -66,16 +66,19 @@ window.onload = ()=>{
     mapa.width = anchoMapa
     mapa.height = alturaBuscada
 
+    const aleatorio = (min,max) =>{
+        return Math.floor(Math.random()*(max-min+1)+min)
+    }
     class Gurerrero {
-        constructor(nombre, foto, vida,fotoMapa,x=10,y=10){
+        constructor(nombre, foto, vida,fotoMapa){
             this.nombre = nombre
             this.foto = foto
             this.vida = vida
             this.ataques= []
             this.ancho = 80
             this.alto = 80
-            this.x = aleatorio(0, mapa.width - this.ancho)
-            this.y = aleatorio(0, mapa.width - this.alto)
+            this.x = aleatorio(0,mapa.width-this.ancho)
+            this.y = aleatorio(0,mapa.height-this.alto)
             this.mapaFoto = new Image()
             this.mapaFoto.src = fotoMapa
             this.velocidadX = 0
@@ -96,9 +99,9 @@ window.onload = ()=>{
     let vegeta = new Gurerrero('Vegeta','./images/vegeta.png',3,'./images/cabezaV.png');
     let broly = new Gurerrero('Broly','./images/broly.png',3,'./images/cabezaB.png');
 
-    let gokuEnemigo = new Gurerrero('Goku','./images/guku.png',3,'./images/cabezaG.png',400,10);
-    let vegetaEnemigo = new Gurerrero('Vegeta','./images/vegeta.png',3,'./images/cabezaV.png',300,150);
-    let brolyEnemigo = new Gurerrero('Broly','./images/broly.png',3,'./images/cabezaB.png',100,250);
+    let gokuEnemigo = new Gurerrero('Goku','./images/guku.png',3,'./images/cabezaG.png');
+    let vegetaEnemigo = new Gurerrero('Vegeta','./images/vegeta.png',3,'./images/cabezaV.png');
+    let brolyEnemigo = new Gurerrero('Broly','./images/broly.png',3,'./images/cabezaB.png');
 
     goku.ataques.push(
         {nombre: '💧',id: 'boton-agua'},
@@ -155,9 +158,7 @@ window.onload = ()=>{
         `
         contenedorTarjetas.innerHTML +=(opcionGuerreros)
     })
-    const aleatorio = (min,max) =>{
-        return Math.floor(Math.random()*(max-min+1)+min)
-    }
+    
     const ataqueAleatorioEnemigo = () =>{
         let ataqueAleatorio = aleatorio(0,ataquesGuerreroEnemigo.length -1)
        
