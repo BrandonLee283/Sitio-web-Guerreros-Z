@@ -1,0 +1,23 @@
+{
+  "name": "mokemon",
+  "version": "1.0.0",
+  "description": "Videojuego de batallas entre personajes de dragon ball Z",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrandonLee283/Sitio-web-Guerreros-Z.git"
+  },
+  "keywords": [],
+  "author": "Brandon Reyes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BrandonLee283/Sitio-web-Guerreros-Z/issues"
+  },
+  "homepage": "https://github.com/BrandonLee283/Sitio-web-Guerreros-Z#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}

@@ -102,7 +102,7 @@ window.onload = ()=>{
     let gokuEnemigo = new Gurerrero('Goku','./images/guku.png',3,'./images/cabezaG.png');
     let vegetaEnemigo = new Gurerrero('Vegeta','./images/vegeta.png',3,'./images/cabezaV.png');
     let brolyEnemigo = new Gurerrero('Broly','./images/broly.png',3,'./images/cabezaB.png');
-
+    
     goku.ataques.push(
         {nombre: '💧',id: 'boton-agua'},
         {nombre: '💧',id: 'boton-agua'},
@@ -158,7 +158,17 @@ window.onload = ()=>{
         `
         contenedorTarjetas.innerHTML +=(opcionGuerreros)
     })
-    
+    const unirseAlJuego=()=>{
+        fetch("http://localhost:8080/unirse")
+            .then((res)=>{
+                if (res.ok){
+                    res.text()
+                    .then((respuesta)=>{
+                        console.log(respuesta)
+                    })
+                }
+            })
+    }
     const ataqueAleatorioEnemigo = () =>{
         let ataqueAleatorio = aleatorio(0,ataquesGuerreroEnemigo.length -1)
        
@@ -320,7 +330,6 @@ window.onload = ()=>{
     botonReiniciar.addEventListener('click',()=>{
         location.reload()
     })
-
     const pintarCanvas=()=>{
 
         selecionado =  mascotaJugador.innerHTML
@@ -345,7 +354,6 @@ window.onload = ()=>{
             }
         })
     }
-
     moverDerecha=()=>{
         guerreros.forEach((guerrero)=>{           
             if (guerrero.nombre == selecionado){
@@ -406,7 +414,6 @@ window.onload = ()=>{
         window.addEventListener('keydown', teclaPresionada)
         window.addEventListener('keyup', detenerMovimiento)
     }
-
     colision = (enemigo) =>{
         const arribaE = enemigo.y
         const abajoE = enemigo.y + enemigo.alto
@@ -435,7 +442,7 @@ window.onload = ()=>{
         seleccionarMascotaEnemigo(enemigo);
        // alert('Hay Colision con '+ enemigo.nombre)
     }
-
+    unirseAlJuego()
 }
     
 
