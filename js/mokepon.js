@@ -51,6 +51,7 @@ window.onload = ()=>{
 
     let intervalo
 
+    let jugadorId
     let mapaBackgroud = new Image()
     mapaBackgroud.src = './images/mapafondo.png'
     
@@ -165,6 +166,7 @@ window.onload = ()=>{
                     res.text()
                     .then((respuesta)=>{
                         console.log(respuesta)
+                        jugadorId = respuesta
                     })
                 }
             })
@@ -264,7 +266,6 @@ window.onload = ()=>{
         inputBroly = document.getElementById(`Broly`)
         if(inputGoku.checked){
             mascotaJugador.innerHTML = (`${inputGoku.id}`)
-            
             iniciarMapa()
             sectionVerMapa.style.display = 'flex'
             seleccionarMascota.style.display = 'none'
@@ -284,7 +285,20 @@ window.onload = ()=>{
         }else{
             alert('Selecciona una guerrero')
         }     
+
+        seleccionarGuerrero(mascotaJugador.innerHTML)
     })
+    seleccionarGuerrero =(mascota)=>{
+        fetch(`http://localhost:8080/guerrero/${jugadorId}`,{
+            method:'POST',
+            headers:{
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                guerrero: mascota
+            })
+        })
+    }
     const generarBotones=()=>{
         selecionado = mascotaJugador.innerHTML;
         guerreros.forEach((guerrero)=>{           
