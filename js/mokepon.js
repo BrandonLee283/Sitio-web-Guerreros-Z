@@ -71,7 +71,8 @@ window.onload = ()=>{
         return Math.floor(Math.random()*(max-min+1)+min)
     }
     class Gurerrero {
-        constructor(nombre, foto, vida,fotoMapa){
+        constructor(nombre, foto, vida,fotoMapa, id = null){
+            this.id = id
             this.nombre = nombre
             this.foto = foto
             this.vida = vida
@@ -100,52 +101,31 @@ window.onload = ()=>{
     let vegeta = new Gurerrero('Vegeta','./images/vegeta.png',3,'./images/cabezaV.png');
     let broly = new Gurerrero('Broly','./images/broly.png',3,'./images/cabezaB.png');
 
-    let gokuEnemigo = new Gurerrero('Goku','./images/guku.png',3,'./images/cabezaG.png');
-    let vegetaEnemigo = new Gurerrero('Vegeta','./images/vegeta.png',3,'./images/cabezaV.png');
-    let brolyEnemigo = new Gurerrero('Broly','./images/broly.png',3,'./images/cabezaB.png');
-    
-    goku.ataques.push(
+    const GOKUATAQUES = [
         {nombre: '💧',id: 'boton-agua'},
         {nombre: '💧',id: 'boton-agua'},
         {nombre: '💧',id: 'boton-agua'},
         {nombre: '🔥',id: 'boton-fuego'},
         {nombre: '🌱', id:'boton-tierra'}
-    )
-    vegeta.ataques.push(
+    ]
+    const VEGETAATAQUES = [
         {nombre: '💧',id: 'boton-agua'},
         {nombre: '🔥',id: 'boton-fuego'},
         {nombre: '🔥',id: 'boton-fuego'},
         {nombre: '🔥',id: 'boton-fuego'},
         {nombre: '🌱', id:'boton-tierra'}
-    )
-    broly.ataques.push(
+    ]    
+    const BROLYATAQUES = [
         {nombre: '💧',id: 'boton-agua'},
         {nombre: '🔥',id: 'boton-fuego'},
         {nombre: '🌱', id:'boton-tierra'},
         {nombre: '🌱', id:'boton-tierra'},
         {nombre: '🌱', id:'boton-tierra'},
-    )
-    gokuEnemigo.ataques.push(
-        {nombre: '💧',id: 'boton-agua'},
-        {nombre: '💧',id: 'boton-agua'},
-        {nombre: '💧',id: 'boton-agua'},
-        {nombre: '🔥',id: 'boton-fuego'},
-        {nombre: '🌱', id:'boton-tierra'}
-    )
-    vegetaEnemigo.ataques.push(
-        {nombre: '💧',id: 'boton-agua'},
-        {nombre: '🔥',id: 'boton-fuego'},
-        {nombre: '🔥',id: 'boton-fuego'},
-        {nombre: '🔥',id: 'boton-fuego'},
-        {nombre: '🌱', id:'boton-tierra'}
-    )
-    brolyEnemigo.ataques.push(
-        {nombre: '💧',id: 'boton-agua'},
-        {nombre: '🔥',id: 'boton-fuego'},
-        {nombre: '🌱', id:'boton-tierra'},
-        {nombre: '🌱', id:'boton-tierra'},
-        {nombre: '🌱', id:'boton-tierra'},
-    )
+    ]
+    goku.ataques.push(...GOKUATAQUES)
+    vegeta.ataques.push(...VEGETAATAQUES)
+    broly.ataques.push(...BROLYATAQUES)
+
    
     guerreros.push(goku,vegeta,broly)
 
@@ -382,6 +362,27 @@ window.onload = ()=>{
                 x,
                 y
             })
+        })
+        .then( (res)=>{
+            if(res.ok){
+                res.json()
+                .then(({enemigos})=>{
+                    enemigos.forEach((enemigo)=>{
+                        let guerreroEnemigo = null
+                        const guerreroNombre = enemigo.guerrero.nombre || ""
+                        if (guerreroNombre === 'Goku'){
+                            guerreroEnemigo = new Gurerrero('Goku','./images/guku.png',3,'./images/cabezaG.png');
+                        }else if(guerreroNombre === 'Vegeta'){
+                            guerreroEnemigo = new Gurerrero('Vegeta','./images/vegeta.png',3,'./images/cabezaV.png');
+                        }else if(guerreroNombre === 'Broly'){
+                            guerreroEnemigo = new Gurerrero('Broly','./images/broly.png',3,'./images/cabezaB.png');
+                        }
+                        guerreroEnemigo.x = enemigo.x
+                        guerreroEnemigo.y = enemigo.y
+                        guerreroEnemigo.pintarGuerrero()
+                    })
+                })
+            }
         })
     }
     moverDerecha=()=>{
