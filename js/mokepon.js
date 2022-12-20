@@ -356,6 +356,9 @@ window.onload = ()=>{
                 lienzo.clearRect(0,0, mapa.width, mapa.height)
                 lienzo.drawImage(mapaBackgroud,0,0,mapa.width,mapa.height)
                 guerrero.pintarGuerrero()
+                
+                enviarPosicion(guerrero.x,guerrero.y)
+
                 gokuEnemigo.pintarGuerrero()
                 vegetaEnemigo.pintarGuerrero()
                 brolyEnemigo.pintarGuerrero()
@@ -366,6 +369,19 @@ window.onload = ()=>{
                 }
 
             }
+        })
+    }
+    enviarPosicion=(x,y)=>{
+        console.log(jugadorId);
+        fetch(`http://localhost:8080/guerrero/${jugadorId}/posicion`,{
+            method: 'POST',
+            headers:{
+                'Content-Type': 'application/json' 
+            },
+            body: JSON.stringify({
+                x,
+                y
+            })
         })
     }
     moverDerecha=()=>{

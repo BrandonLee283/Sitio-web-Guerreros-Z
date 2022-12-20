@@ -13,6 +13,10 @@ class Jugador{
     asignarGuerrero(guerrero){
         this.guerrero = guerrero
     }
+    actualizarPosicion(x,y){
+        this.x = x;
+        this.y = y;
+    }
 }
 class Guerrero{
     constructor(nombre){
@@ -39,6 +43,17 @@ app.post('/guerrero/:jugadorId', (req,res)=>{
     }
     console.log(jugadores);
     console.log(jugadorId);
+    res.end()
+})
+app.post(`/guerrero/:jugadorId/posicion`, (req,res)=>{
+    const jugadorId = req.params.jugadorId || ""
+    const x = req.body.x || 0
+    const y = req.body.y || 0
+
+    const jugadorIndex = jugadores.findIndex((jugador)=> jugadorId === jugador.id)
+    if (jugadorIndex >=0 ){
+        jugadores[jugadorIndex].actualizarPosicion(x,y)
+    }
     res.end()
 })
 app.listen(8080, ()=>{
