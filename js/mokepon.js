@@ -128,7 +128,6 @@ window.onload = ()=>{
     vegeta.ataques.push(...VEGETAATAQUES)
     broly.ataques.push(...BROLYATAQUES)
 
-   
     guerreros.push(goku,vegeta,broly)
 
     guerreros.forEach((guerrero)=>{
@@ -174,6 +173,7 @@ window.onload = ()=>{
         }
     }
     const validarPartida =() =>{
+        clearInterval(intervalo)
         for (let index = 0; index < ataqueJugadorA.length; index++) {
             if (ataqueJugadorA[index] === ataqueEnemigo[index]) {
                 indexAmbosOponentes(index,index)
@@ -328,16 +328,31 @@ window.onload = ()=>{
     }
     EnviarAtaques = () =>{
         fetch(`http://localhost:8080/guerrero/${jugadorId}/ataques`,{
-            
-            method : 'POST',
-            headers :{
-                "Context-Type": "application/json"
+            method: 'POST',
+            headers:{
+                "Content-Type": "application/json"
             },
             body: JSON.stringify({
                 ataques: ataqueJugadorA
-            })
+            })    
         })
+        intervalo = setInterval(obtenerAtaques, 50)
     }
+function obtenerAtaques(){
+    fetch(`http://localhost:8080/guerrero/${enemigoId}/ataques`)
+        .then(function(res){
+            if (res.ok){
+                res.json()
+                    .then(function({ataques}){
+                        if (ataques.length === 5){
+                            ataqueEnemigo = ataques 
+                            iniciarPelea()
+                        }
+                    })
+            }
+        })
+}
+
     botonReiniciar.addEventListener('click',()=>{
         location.reload()
     })

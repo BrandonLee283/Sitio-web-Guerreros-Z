@@ -65,12 +65,20 @@ app.post(`/guerrero/:jugadorId/posicion`, (req,res)=>{
 })
 app.post(`/guerrero/:jugadorId/ataques`, (req,res)=>{
     const jugadorId = req.params.jugadorId || ""
-    const ataques = req.body.ataques || []
+    const ataques = req.body.ataques || "Algo Fallo"
     const jugadorIndex = jugadores.findIndex((jugador)=> jugadorId === jugador.id)
     if (jugadorIndex >=0 ){
         jugadores[jugadorIndex].asignarAtaques(ataques)
     }
+    
     res.end()
+})
+app.get(`/guerrero/:jugadorId/ataques`, (req,res)=>{
+    const jugadorId = req.params.jugadorId || ""
+    const jugador = jugadores.find((jugador) => jugador.id === jugadorId)
+    res.send({
+        ataques: jugador.ataques || ""
+    })
 })
 app.listen(8080, ()=>{
     console.log('Servidor Creado')
