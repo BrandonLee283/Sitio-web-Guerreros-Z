@@ -44,6 +44,7 @@ window.onload = ()=>{
     let botones = []
     let indexAtaqueJugador 
     let indexAtaqueEnemigo
+    let guerrerosEnemigos = []
     let guerreros = []
 
     let victoriasJugador = 0
@@ -52,6 +53,7 @@ window.onload = ()=>{
     let intervalo
 
     let jugadorId
+    let enemigoId
     let mapaBackgroud = new Image()
     mapaBackgroud.src = './images/mapafondo.png'
     
@@ -316,10 +318,25 @@ window.onload = ()=>{
                     console.log(ataqueJugadorA)
                     boton.style.backgroundColor = '#fff'
                 }
-                ataqueAleatorioEnemigo()
+                if (ataqueJugadorA.length === 5) {
+                    EnviarAtaques()    
+                }
+                
             })
         })
        
+    }
+    EnviarAtaques = () =>{
+        fetch(`http://localhost:8080/guerrero/${jugadorId}/ataques`,{
+            
+            method : 'POST',
+            headers :{
+                "Context-Type": "application/json"
+            },
+            body: JSON.stringify({
+                ataques: ataqueJugadorA
+            })
+        })
     }
     botonReiniciar.addEventListener('click',()=>{
         location.reload()
@@ -338,16 +355,10 @@ window.onload = ()=>{
                 guerrero.pintarGuerrero()
                 
                 enviarPosicion(guerrero.x,guerrero.y)
-
-                gokuEnemigo.pintarGuerrero()
-                vegetaEnemigo.pintarGuerrero()
-                brolyEnemigo.pintarGuerrero()
-                if (guerrero.velocidadX !==0 || guerrero.velocidadY !==0) {
-                    colision(gokuEnemigo)
-                    colision(vegetaEnemigo)
-                    colision(brolyEnemigo)
-                }
-
+                guerrerosEnemigos.forEach((guerrero)=>{
+                    guerrero.pintarGuerrero()
+                    colision(guerrero)
+                })
             }
         })
     }
@@ -367,19 +378,21 @@ window.onload = ()=>{
             if(res.ok){
                 res.json()
                 .then(({enemigos})=>{
-                    enemigos.forEach((enemigo)=>{
+                    guerrerosEnemigos = enemigos.map((enemigo)=>{
                         let guerreroEnemigo = null
                         const guerreroNombre = enemigo.guerrero.nombre || ""
+                        console.log(guerreroNombre);
                         if (guerreroNombre === 'Goku'){
-                            guerreroEnemigo = new Gurerrero('Goku','./images/guku.png',3,'./images/cabezaG.png');
+                            guerreroEnemigo = new Gurerrero('Goku','./images/guku.png',3,'./images/cabezaG.png', enemigo.id);
                         }else if(guerreroNombre === 'Vegeta'){
-                            guerreroEnemigo = new Gurerrero('Vegeta','./images/vegeta.png',3,'./images/cabezaV.png');
+                            guerreroEnemigo = new Gurerrero('Vegeta','./images/vegeta.png',3,'./images/cabezaV.png', enemigo.id);
                         }else if(guerreroNombre === 'Broly'){
-                            guerreroEnemigo = new Gurerrero('Broly','./images/broly.png',3,'./images/cabezaB.png');
+                            guerreroEnemigo = new Gurerrero('Broly','./images/broly.png',3,'./images/cabezaB.png', enemigo.id);
                         }
                         guerreroEnemigo.x = enemigo.x
                         guerreroEnemigo.y = enemigo.y
-                        guerreroEnemigo.pintarGuerrero()
+
+                        return guerreroEnemigo
                     })
                 })
             }
@@ -468,6 +481,7 @@ window.onload = ()=>{
         detenerMovimiento()
         clearInterval(intervalo)
         console.log('Se detecto una cola');
+        enemigoId = enemigo.id
         seleccionarAtaque.style.display = 'flex'
         sectionVerMapa.style.display = 'none'
         seleccionarMascotaEnemigo(enemigo);
