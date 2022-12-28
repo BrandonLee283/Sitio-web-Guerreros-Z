@@ -495,7 +495,7 @@ function obtenerAtaques(){
         }
         detenerMovimiento()
         clearInterval(intervalo)
-        console.log('Se detecto una cola');
+        console.log('Se detecto una colision');
         enemigoId = enemigo.id
         seleccionarAtaque.style.display = 'flex'
         sectionVerMapa.style.display = 'none'
