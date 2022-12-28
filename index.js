@@ -81,6 +81,6 @@ app.get(`/guerrero/:jugadorId/ataques`, (req,res)=>{
         ataques: jugador.ataques || ""
     })
 })
-app.listen(8080, ()=>{
+app.listen(3000, ()=>{
     console.log('Servidor Creado')
 })

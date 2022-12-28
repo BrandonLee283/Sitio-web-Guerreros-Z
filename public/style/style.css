@@ -126,7 +126,7 @@ input:checked + .tarjeta , .tarjeta:hover{
 }
 
 
-@media (max-width:360px) {
+@media (max-width:620px) {
     .guerreros{
         display: flex;
         height: 250px;
