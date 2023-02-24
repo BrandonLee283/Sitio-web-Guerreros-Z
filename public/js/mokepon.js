@@ -141,7 +141,7 @@ window.onload = ()=>{
         contenedorTarjetas.innerHTML +=(opcionGuerreros)
     })
     const unirseAlJuego=()=>{
-        fetch("http://192.168.1.7:3000/unirse")
+        fetch("http://192.168.1.9:3000/unirse")
             .then((res)=>{
                 if (res.ok){
                     res.text()
@@ -271,7 +271,7 @@ window.onload = ()=>{
         seleccionarGuerrero(mascotaJugador.innerHTML)
     })
     seleccionarGuerrero =(mascota)=>{
-        fetch(`http://192.168.1.7:3000/guerrero/${jugadorId}`,{
+        fetch(`http://192.168.1.9:3000/guerrero/${jugadorId}`,{
             method:'POST',
             headers:{
                 'Content-Type': 'application/json'
@@ -327,7 +327,7 @@ window.onload = ()=>{
        
     }
     EnviarAtaques = () =>{
-        fetch(`http://192.168.1.7:3000/guerrero/${jugadorId}/ataques`,{
+        fetch(`http://192.168.1.9:3000/guerrero/${jugadorId}/ataques`,{
             method: 'POST',
             headers:{
                 "Content-Type": "application/json"
@@ -338,21 +338,20 @@ window.onload = ()=>{
         })
         intervalo = setInterval(obtenerAtaques, 50)
     }
-function obtenerAtaques(){
-    fetch(`http://192.168.1.7:3000/guerrero/${enemigoId}/ataques`)
-        .then(function(res){
-            if (res.ok){
-                res.json()
-                    .then(function({ataques}){
-                        if (ataques.length === 5){
-                            ataqueEnemigo = ataques 
-                            iniciarPelea()
-                        }
-                    })
-            }
-        })
-}
-
+    function obtenerAtaques(){
+        fetch(`http://192.168.1.9:3000/guerrero/${enemigoId}/ataques`)
+            .then(function(res){
+                if (res.ok){
+                    res.json()
+                        .then(function({ataques}){
+                            if (ataques.length === 5){
+                                ataqueEnemigo = ataques 
+                                iniciarPelea()
+                            }
+                        })
+                }
+            })
+    }
     botonReiniciar.addEventListener('click',()=>{
         location.reload()
     })
@@ -379,7 +378,7 @@ function obtenerAtaques(){
     }
     enviarPosicion=(x,y)=>{
         console.log(jugadorId);
-        fetch(`http://192.168.1.7:3000/guerrero/${jugadorId}/posicion`,{
+        fetch(`http://192.168.1.9:3000/guerrero/${jugadorId}/posicion`,{
             method: 'POST',
             headers:{
                 'Content-Type': 'application/json' 
